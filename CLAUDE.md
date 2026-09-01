@@ -66,3 +66,6 @@
 - **Images:** Serve responsive images via `srcset` + `sizes`, or use `<picture>` for art direction. Never load a 2000px hero on a 390px screen — it burns data and layout-shifts on slow networks.
 - **Spacing scales down.** Section padding at desktop (`py-24`) is too much on mobile — halve it (`py-12 md:py-24`). Same for gaps and margins.
 - **Test scroll performance.** Long pages with heavy shadows, blurs, or `backdrop-filter` chug on mid-tier phones. If it stutters, drop the effect on mobile with `@media (max-width: 768px)`.
+
+## Project description
+- ** look at project_description.md for identifiying project specific need and scope.

@@ -41,3 +41,7 @@ $RECYCLE.BIN/
 # Logs
 *.log
 logs/
+
+# Misc
+deployment.txt
+*.md
