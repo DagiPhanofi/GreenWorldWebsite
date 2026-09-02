@@ -315,6 +315,8 @@ img { max-width: 100%; height: auto; display: block; }
 }
 .gw-card--float { box-shadow: var(--sh-md); }
 a.gw-card:hover, .gw-card--hov:hover { transform: translateY(-4px); box-shadow: var(--sh-lg); }
+a.gw-card:focus-visible { outline: 3px solid var(--leaf); outline-offset: 3px; }
+a.gw-card:active { transform: translateY(-1px); box-shadow: var(--sh-sm); }
 
 /* Varekort */
 .gw-prod {
@@ -410,6 +412,13 @@ a.gw-card:hover, .gw-card--hov:hover { transform: translateY(-4px); box-shadow: 
   background: rgba(137,193,74,.13); border: 1.5px solid var(--leaf); border-radius: var(--r-lg);
 }
 .gw-ok[data-show="true"] { display: block; }
+
+/* Afleveringspanel: mailprogrammet er åbnet, men intet er sendt endnu.
+   Bevidst neutralt — det må ikke kunne forveksles med en kvittering. */
+.gw-ok--pending {
+  background: var(--sand);
+  border-color: var(--line);
+}
 
 /* =========================================================================
    Footer
@@ -515,6 +524,17 @@ body[data-locked="true"] { overflow: hidden; }
    browseren bredden af højden og sprænger viewporten på mobil. */
 .gw-media--map { width: 100%; height: clamp(300px, 72vw, 420px); }
 @media (min-width: 900px) { .gw-media--map { height: 100%; min-height: 360px; } }
+
+/* Samtykke-flade i kortboksen. Fylder præcis samme kasse som iframen,
+   så der ikke sker et layoutskift, når kortet indlæses. */
+.gw-mapgate {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: var(--s4); padding: var(--s6);
+  text-align: center; background: var(--sand);
+}
+.gw-mapgate p { margin: 0; max-width: 34ch; font-size: .92rem; color: var(--muted); line-height: 1.6; }
 
 /* To-kolonne med sidepanel — først fra desktop */
 .gw-split--aside { align-items: start; }

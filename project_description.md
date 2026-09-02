@@ -147,7 +147,9 @@ Tap-targets minimum 44×44px. `env(safe-area-inset-*)` på faste elementer.
 
 ## Teknik
 
-Statisk site, intet build-step. Tailwind via CDN med inline `tailwind.config`.
+Statisk site, intet build-step. Al styling er håndskrevet CSS i `assets/site.css`
+med `gw-*`-klasser. Tailwind-CDN'et er fjernet: ingen utility-klasse blev nogensinde
+brugt, og scriptet blokerede renderingen på hver side.
 Ingen `package.json`, ingen dependencies.
 
 - `node serve.mjs` → `http://localhost:3000`
