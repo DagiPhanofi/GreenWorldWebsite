@@ -15,6 +15,7 @@
 
   if (burger && sheet && scrim) {
     var lastFocus = null;
+    var burgerLabel = burger.querySelector('.gw-sr');
 
     var setMenu = function (open) {
       sheet.dataset.open = String(open);
@@ -22,6 +23,9 @@
       burger.setAttribute('aria-expanded', String(open));
       document.body.dataset.locked = String(open);
       sheet.setAttribute('aria-hidden', String(!open));
+      // Navnet skal følge tilstanden — ellers siger skærmlæseren "Åbn menu",
+      // mens menuen står åben.
+      if (burgerLabel) burgerLabel.textContent = open ? 'Luk menu' : 'Åbn menu';
 
       if (open) {
         lastFocus = document.activeElement;
@@ -59,7 +63,41 @@
   }
 
   /* -----------------------------------------------------------------------
-     2) Formularer
+     2) Årstal i footeren
+     --------------------------------------------------------------------- */
+  var yearEl = document.querySelector('[data-gw-year]');
+  if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+  /* -----------------------------------------------------------------------
+     3) Antal varer pr. kategori — udregnes, så tallet ikke kan drifte
+     --------------------------------------------------------------------- */
+  document.querySelectorAll('.gw-cat__count').forEach(function (el) {
+    var section = el.closest('section');
+    if (!section) return;
+    var n = section.querySelectorAll('.gw-prod').length;
+    el.textContent = n + (n === 1 ? ' vare' : ' varer');
+  });
+
+  /* -----------------------------------------------------------------------
+     4) Kort indlæses først på klik — ingen Google-indhold uden samtykke
+     --------------------------------------------------------------------- */
+  document.querySelectorAll('[data-gw-map]').forEach(function (box) {
+    var btn = box.querySelector('[data-gw-map-load]');
+    if (!btn) return;
+
+    btn.addEventListener('click', function () {
+      var frame = document.createElement('iframe');
+      frame.title = box.dataset.gwMapTitle || 'Kort';
+      frame.src = box.dataset.gwMap;
+      frame.loading = 'lazy';
+      frame.referrerPolicy = 'no-referrer-when-downgrade';
+      frame.style.cssText = 'width:100%;height:100%;border:0;display:block';
+      box.replaceChildren(frame);
+    });
+  });
+
+  /* -----------------------------------------------------------------------
+     5) Formularer
      --------------------------------------------------------------------- */
   var forms = document.querySelectorAll('[data-gw-form]');
   if (!forms.length) return;
@@ -139,46 +177,62 @@
       e.preventDefault();
       if (!validate(form)) return;
 
-      var btn = form.querySelector('[type="submit"]');
-      var key = (form.dataset.accessKey || '').trim();
-      var ok  = document.getElementById(form.dataset.success);
+      var btn     = form.querySelector('[type="submit"]');
+      var key     = (form.dataset.accessKey || '').trim();
+      var ok      = document.getElementById(form.dataset.success);
+      var pending = document.getElementById(form.dataset.pending);
 
-      var succeed = function () {
-        if (ok) {
-          form.style.display = 'none';
-          ok.dataset.show = 'true';
-          ok.setAttribute('tabindex', '-1');
-          ok.focus();
-          ok.scrollIntoView({ block: 'center', behavior: 'smooth' });
-        }
+      var reveal = function (panel) {
+        if (!panel) return;
+        form.style.display = 'none';
+        panel.dataset.show = 'true';
+        panel.setAttribute('tabindex', '-1');
+        panel.focus();
+        panel.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      };
+
+      // Bekræftet modtaget af endpointet.
+      var succeed = function () { reveal(ok); };
+
+      // Vi har KUN åbnet brugerens mailprogram. Vi kan ikke vide, om beskeden
+      // blev sendt — så vis aldrig kvitteringen her.
+      var handoff = function () {
+        window.location.href = toMailto(form);
+        reveal(pending || ok);
       };
 
       // Intet endpoint konfigureret endnu → fald tilbage til en forudfyldt e-mail
       if (!key || key.indexOf('INDSÆT') === 0) {
-        window.location.href = toMailto(form);
-        succeed();
+        handoff();
         return;
       }
 
       var label = btn ? btn.textContent : '';
       if (btn) { btn.disabled = true; btn.textContent = 'Sender …'; }
 
+      var restore = function () {
+        if (btn) { btn.disabled = false; btn.textContent = label; }
+      };
+
       var data = new FormData(form);
       data.append('access_key', key);
 
       fetch('https://api.web3forms.com/submit', { method: 'POST', body: data })
-        .then(function (r) { return r.json(); })
         .then(function (r) {
-          if (r && r.success) { succeed(); }
-          else { window.location.href = toMailto(form); succeed(); }
+          // Uden dette tjek ryger en 5xx-HTML-fejlside videre til r.json()
+          // og lander i catch som var det en netværksfejl.
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          return r.json();
+        })
+        .then(function (r) {
+          restore();
+          if (r && r.success) succeed();
+          else handoff();
         })
         .catch(function () {
-          // Netværksfejl → brugeren mister ikke sin bestilling
-          window.location.href = toMailto(form);
-          succeed();
-        })
-        .then(function () {
-          if (btn) { btn.disabled = false; btn.textContent = label; }
+          // Netværks- eller serverfejl → brugeren mister ikke sin bestilling
+          restore();
+          handoff();
         });
     });
   });

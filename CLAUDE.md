@@ -26,7 +26,7 @@
 
 ## Output Defaults
 - Single `index.html` file, all styles inline, unless user says otherwise
-- Tailwind CSS via CDN: `<script src="https://cdn.tailwindcss.com"></script>`
+- Hand-written CSS in `assets/site.css`, using the `gw-*` class convention. **Do not add Tailwind** — the CDN was removed deliberately (it was render-blocking and no utility class was ever used).
 - Placeholder images: `https://placehold.co/WIDTHxHEIGHT`
 - Mobile-first responsive
 
