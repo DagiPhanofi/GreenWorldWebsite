@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#066923">
-<title>Bestil varer — GREEN WORLD</title>
-<meta name="description" content="Forudbestil varer hos GREEN WORLD på Gasværksvej 15 i København. Udfyld bestillingsformularen, eller bestil på dansk, tigrinya eller amharisk.">
-<meta property="og:title" content="Bestil varer — GREEN WORLD">
-<meta property="og:description" content="Forudbestil dine favoritter. Vi sørger for de ægte smage til dit køkken.">
+<title>Din kurv — GREEN WORLD</title>
+<meta name="description" content="Saml dine varer i kurven og send bestillingen til GREEN WORLD på Gasværksvej 15 i København. Vi ringer og bekræfter pris og afhentning.">
+<meta property="og:title" content="Din kurv — GREEN WORLD">
+<meta property="og:description" content="Vælg dine varer, og send bestillingen. Vi sørger for de ægte smage til dit køkken.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="da_DK">
 <link rel="icon" href="assets/img/logo.jpg">
@@ -34,7 +34,7 @@
     <nav class="gw-nav" aria-label="Hovedmenu">
       <a class="gw-navlink" href="index.html">Forside</a>
       <a class="gw-navlink" href="vare-liste.html">Vare liste</a>
-      <a class="gw-navlink" href="kurv.html">Kurv <span class="gw-cartcount" data-gw-cart-count hidden>0</span></a>
+      <a class="gw-navlink" href="kurv.html" aria-current="page">Kurv <span class="gw-cartcount" data-gw-cart-count hidden>0</span></a>
       <a class="gw-navlink" href="om-os.html">Om os</a>
       <a class="gw-navlink" href="kontakt.html">Kontakt os</a>
       <a class="gw-btn gw-btn--ghost" style="margin-left:12px" href="kontrol-rapport.html">Se kontrolrapport</a>
@@ -52,24 +52,24 @@
   <!-- ============================ SIDEHOVED ============================ -->
   <section class="gw-pagehead gw-surface-glow gw-grain">
     <div class="gw-wrap">
-      <p class="gw-crumbs"><a href="index.html">Forside</a> <span aria-hidden="true">/</span> Bestil</p>
+      <p class="gw-crumbs"><a href="index.html">Forside</a> <span aria-hidden="true">/</span> Kurv</p>
       <p class="gw-eyebrow">Forudbestil</p>
-      <h1 class="gw-h1">Bestil varer</h1>
+      <h1 class="gw-h1">Din kurv</h1>
       <p class="gw-lead" style="max-width:58ch">
-        Skriv hvad du mangler, så gør vi det klar. Vi kontakter dig og bekræfter pris og
-        afhentningstidspunkt, før vi pakker din bestilling.
+        Gennemgå dine varer, skriv hvad der ellers mangler, og send bestillingen. Vi kontakter
+        dig og bekræfter pris og afhentningstidspunkt, før vi pakker.
       </p>
     </div>
   </section>
 
-  <!-- ============================ FORMULAR ============================ -->
+  <!-- ============================ KURV + FORMULAR ============================ -->
   <section class="gw-section gw-surface-white" style="padding-block:48px">
     <div class="gw-wrap">
       <div class="gw-split gw-split--aside">
 
         <div>
-          <!-- Kvittering — vises når formularen er sendt -->
-          <div class="gw-ok" id="ok-bestil" role="status">
+          <!-- Kvittering — vises når bestillingen er bekræftet modtaget -->
+          <div class="gw-ok" id="ok-kurv" role="status">
             <span class="gw-icon gw-icon--leaf" aria-hidden="true" style="width:56px;height:56px;margin:0 auto">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
             </span>
@@ -82,7 +82,7 @@
           </div>
 
           <!-- Aflevering til mailprogrammet — bestillingen er IKKE sendt endnu -->
-          <div class="gw-ok gw-ok--pending" id="pending-bestil" role="status">
+          <div class="gw-ok gw-ok--pending" id="pending-kurv" role="status">
             <span class="gw-icon" aria-hidden="true" style="width:56px;height:56px;margin:0 auto">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18v12H3z"/><path d="m3 7 9 6 9-6"/></svg>
             </span>
@@ -90,7 +90,8 @@
             <p class="gw-body">
               Vi har åbnet en færdigskrevet e-mail med din bestilling.
               <strong>Den er først sendt, når du trykker send i dit mailprogram.</strong>
-              Skete der ikke noget, kan du ringe på
+              Din kurv står stadig her, indtil bestillingen er kommet frem. Skete der ikke
+              noget, kan du ringe på
               <a class="gw-link" href="tel:+4551916089">51 91 60 89</a>
               eller skrive til
               <a class="gw-link" href="mailto:gwservice@gmail.com">gwservice@gmail.com</a>.
@@ -98,23 +99,54 @@
           </div>
 
           <!--
-            BESTILLINGSFORMULAR
-            data-access-key skal udskiftes med en rigtig Web3Forms access key
-            (gratis nøgle hentes på https://web3forms.com).
-            Indtil da falder formularen automatisk tilbage til en forudfyldt e-mail.
+            BESTILLING FRA KURVEN
+            Kurven ligger i kundens browser (localStorage) og skrives ind i det
+            skjulte Varer-felt lige før afsendelse. Se shoppingcart.md.
           -->
           <form
             data-gw-form
+            data-gw-cart-form
             data-access-key="894dbba5-03bb-4553-a7de-235e951fb583"
             data-mailto="gwservice@gmail.com"
             data-subject="Ny bestilling fra hjemmesiden"
-            data-success="ok-bestil"
-            data-pending="pending-bestil">
+            data-success="ok-kurv"
+            data-pending="pending-kurv">
 
             <!-- Web3Forms honeypot: udfyldt = bot. Skal blive tom. -->
             <input type="checkbox" name="botcheck" class="gw-sr" tabindex="-1" autocomplete="off" aria-hidden="true">
 
-            <h2 class="gw-h3" style="margin-bottom:24px">Din bestilling</h2>
+            <!-- Udfyldes af assets/site.js ved afsendelse -->
+            <input type="hidden" name="Varer" value="">
+
+            <h2 class="gw-h3" style="margin-bottom:24px">Dine varer</h2>
+
+            <div class="gw-cart" data-gw-cart>
+              <div class="gw-cart__empty" data-gw-cart-empty>
+                <p class="gw-h4" style="margin:0">Din kurv er tom</p>
+                <p>Vælg varer på vare listen — eller skriv nedenfor, hvad du mangler.</p>
+                <a class="gw-btn" href="vare-liste.html">Se vare listen</a>
+              </div>
+
+              <ul class="gw-cart__list" data-gw-cart-list hidden></ul>
+
+              <div class="gw-cart__sum" data-gw-cart-sum hidden>
+                <b>Anslået i alt</b>
+                <span class="gw-cart__total" data-gw-cart-total>0,00 kr</span>
+              </div>
+
+              <p class="gw-note" style="margin-top:12px">
+                Priserne er vejledende. Endelig pris bekræftes, når vi ringer til dig.
+              </p>
+
+              <span class="gw-error" data-gw-cart-error aria-live="polite"></span>
+            </div>
+
+            <label class="gw-field" style="margin-top:32px">
+              <span class="gw-label">Andre varer <span>(står ikke på listen)</span></span>
+              <textarea class="gw-textarea" name="Andre varer" style="min-height:110px" placeholder="Fx:&#10;1 pose berbere&#10;2 flasker sesamolie"></textarea>
+            </label>
+
+            <h2 class="gw-h3" style="margin:40px 0 24px">Dine oplysninger</h2>
 
             <div class="gw-grid gw-g-md2" style="gap:0 24px">
               <label class="gw-field">
@@ -152,12 +184,6 @@
                 Levering aftales individuelt — vi ringer og bekræfter, om det kan lade sig gøre.
               </p>
             </div>
-
-            <label class="gw-field">
-              <span class="gw-label">Hvilke varer vil du bestille?</span>
-              <textarea class="gw-textarea" name="Varer" required data-msg="Skriv hvilke varer du gerne vil bestille." placeholder="Fx:&#10;2 kg teff mel (brun)&#10;1 glas krydret smør&#10;500 g chilli pulver"></textarea>
-              <span class="gw-error" aria-live="polite"></span>
-            </label>
 
             <div class="gw-grid gw-g-md2" style="gap:0 24px">
               <label class="gw-field">
@@ -219,46 +245,6 @@
           </div>
         </aside>
 
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================ ANDRE SPROG ============================ -->
-  <section class="gw-section gw-surface-cream" style="padding-block:48px">
-    <div class="gw-wrap">
-      <div style="max-width:640px">
-        <p class="gw-eyebrow">Andre sprog</p>
-        <h2 class="gw-h2">Bestil på dit sprog</h2>
-        <p class="gw-lead">
-          Du kan også bruge vores bestillingsformularer på dansk, tigrinya eller amharisk.
-          De åbner i et nyt vindue.
-        </p>
-      </div>
-
-      <div class="gw-grid gw-g-lg3" style="margin-top:32px">
-        <a class="gw-card gw-card--hov" href="https://docs.google.com/forms/d/e/1FAIpQLSfeOlv94gr59_X8dyeFQxWyKC5kfL7dRZz5DBiheVJzKas16A/viewform" target="_blank" rel="noopener" style="text-decoration:none;display:block">
-          <span class="gw-icon gw-icon--leaf" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M18 21H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h8l5 5v12a1 1 0 0 1-1 1Z"/><path d="M9 13h6M9 17h4"/></svg>
-          </span>
-          <h3 class="gw-h4" style="margin-top:16px">Bestilling på dansk</h3>
-          <p class="gw-note" style="margin-top:6px">Google Forms · åbner i nyt vindue</p>
-        </a>
-
-        <a class="gw-card gw-card--hov" href="https://forms.gle/9KGA1Tb3vA9y4CMs7" target="_blank" rel="noopener" style="text-decoration:none;display:block">
-          <span class="gw-icon gw-icon--leaf" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M18 21H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h8l5 5v12a1 1 0 0 1-1 1Z"/><path d="M9 13h6M9 17h4"/></svg>
-          </span>
-          <h3 class="gw-h4" style="margin-top:16px" lang="ti">ትግርኛ</h3>
-          <p class="gw-note" style="margin-top:6px">Bestilling på tigrinya</p>
-        </a>
-
-        <a class="gw-card gw-card--hov" href="https://forms.gle/twf8PuJVjAWPFnM29" target="_blank" rel="noopener" style="text-decoration:none;display:block">
-          <span class="gw-icon gw-icon--leaf" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M18 21H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h8l5 5v12a1 1 0 0 1-1 1Z"/><path d="M9 13h6M9 17h4"/></svg>
-          </span>
-          <h3 class="gw-h4" style="margin-top:16px" lang="am">አማርኛ</h3>
-          <p class="gw-note" style="margin-top:6px">Bestilling på amharisk</p>
-        </a>
       </div>
     </div>
   </section>
@@ -336,7 +322,7 @@
   <nav aria-label="Mobilmenu">
     <a class="gw-sheet__link" href="index.html">Forside <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
     <a class="gw-sheet__link" href="vare-liste.html">Vare liste <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
-    <a class="gw-sheet__link" href="kurv.html"><span>Kurv <span class="gw-cartcount" data-gw-cart-count hidden>0</span></span> <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+    <a class="gw-sheet__link" href="kurv.html" aria-current="page"><span>Kurv <span class="gw-cartcount" data-gw-cart-count hidden>0</span></span> <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
     <a class="gw-sheet__link" href="om-os.html">Om os <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
     <a class="gw-sheet__link" href="kontakt.html">Kontakt os <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
     <a class="gw-sheet__link" href="kontrol-rapport.html">Se kontrolrapport <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
