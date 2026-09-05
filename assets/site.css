@@ -71,6 +71,10 @@ body {
   body { padding-bottom: calc(68px + env(safe-area-inset-bottom)); }
 }
 
+/* display fra en klasse slår browserens egen [hidden]-regel. Uden dette
+   bliver "0,00 kr"-summen og antalschippen stående på en tom kurv. */
+[hidden] { display: none !important; }
+
 img { max-width: 100%; height: auto; display: block; }
 
 ::selection { background: var(--leaf); color: var(--deep); }
@@ -554,4 +558,112 @@ body[data-locked="true"] { overflow: hidden; }
   .gw-footer li a { min-height: 44px; }
   .gw-footer address a { display: inline-flex; align-items: center; min-height: 44px; }
   .gw-crumbs a { display: inline-block; padding-block: 10px; }
+}
+
+/* =========================================================================
+   Kurv
+   Kortets kontrolrække er beregnet til det smalleste tilfælde: 2-kolonne
+   gitter på en 360px skærm giver ca. 120px indvendig bredde. Derfor er
+   trinvælgeren en flex-række, hvor kun tallet giver efter — knapperne bliver
+   ved 44px, uanset hvor smalt kortet bliver.
+   ========================================================================= */
+
+/* ---------- Antalschip i menuen ---------- */
+.gw-cartcount {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 22px; height: 22px; margin-left: 6px; padding: 0 6px;
+  border-radius: 999px;
+  background: var(--forest); color: #fff;
+  font-size: .72rem; font-weight: 700; font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.gw-sheet__link .gw-cartcount,
+.gw-bottombar .gw-btn .gw-cartcount { background: var(--leaf); color: var(--deep); }
+.gw-bottombar .gw-btn .gw-cartcount { background: rgba(255,255,255,.22); color: #fff; }
+
+/* ---------- Kontrolrække på varekortet ---------- */
+.gw-add {
+  display: grid; gap: var(--s2);
+  margin-top: var(--s3); padding-top: var(--s3);
+  border-top: 1px solid var(--line);
+}
+.gw-select--sm {
+  min-height: 44px; padding: 8px var(--s3); padding-right: 32px;
+  background-position: right 10px center;
+}
+.gw-add .gw-btn { min-height: 44px; padding: 0 var(--s3); font-size: .88rem; }
+
+/* ---------- Trinvælger ---------- */
+.gw-qty { display: flex; align-items: stretch; border: 1.5px solid var(--line); border-radius: var(--r-md); background: var(--white); overflow: hidden; }
+.gw-qty__btn {
+  flex: none; width: 44px; min-height: 44px; padding: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: transparent; border: 0; cursor: pointer;
+  color: var(--forest); font: inherit; font-size: 1.25rem; font-weight: 600; line-height: 1;
+  transition: background-color .3s var(--ease), transform .3s var(--ease);
+}
+.gw-qty__btn:hover  { background: rgba(6,105,35,.08); }
+.gw-qty__btn:active { transform: scale(.9); }
+.gw-qty__btn:focus-visible { outline: 3px solid var(--leaf); outline-offset: -3px; }
+.gw-qty__btn[disabled] { opacity: .35; cursor: not-allowed; }
+.gw-qty__val {
+  flex: 1; min-width: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: .98rem; font-weight: 700; color: var(--deep);
+  font-variant-numeric: tabular-nums;
+  border-inline: 1.5px solid var(--line);
+}
+
+/* ---------- Kurvlinjer ---------- */
+.gw-cart { display: block; }
+.gw-cart__list { list-style: none; margin: 0; padding: 0; }
+.gw-cartrow {
+  display: grid; grid-template-columns: 1fr auto;
+  gap: var(--s3) var(--s4); align-items: center;
+  padding-block: var(--s4);
+  border-bottom: 1px solid var(--line);
+}
+.gw-cartrow__main { grid-column: 1 / -1; min-width: 0; }
+.gw-cartrow__name { font-family: Fraunces, Georgia, serif; font-size: 1.05rem; font-weight: 600; letter-spacing: -0.02em; color: var(--deep); margin: 0; }
+.gw-cartrow__unit { font-size: .86rem; color: var(--muted); margin: 4px 0 0; }
+.gw-cartrow .gw-qty { width: 132px; }
+.gw-cartrow__end { display: flex; align-items: center; justify-content: flex-end; gap: var(--s2); }
+.gw-cartrow__sum { font-size: .98rem; font-weight: 700; color: var(--forest); margin: 0; white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+@media (min-width: 640px) {
+  .gw-cartrow { grid-template-columns: minmax(0,1fr) 132px auto; }
+  .gw-cartrow__main { grid-column: auto; }
+}
+
+.gw-remove {
+  flex: none; width: 44px; height: 44px; padding: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: transparent; border: 1px solid transparent; border-radius: 50%;
+  color: var(--muted); cursor: pointer;
+  transition: background-color .3s var(--ease), color .3s var(--ease), transform .3s var(--ease);
+}
+.gw-remove:hover  { background: rgba(179,38,30,.08); color: #b3261e; }
+.gw-remove:active { transform: scale(.9); }
+.gw-remove:focus-visible { outline: 3px solid var(--leaf); outline-offset: 2px; }
+
+/* ---------- Sum og tom kurv ---------- */
+.gw-cart__sum {
+  display: flex; align-items: baseline; justify-content: space-between; gap: var(--s4);
+  margin-top: var(--s6); padding-top: var(--s4);
+  border-top: 2px solid var(--line);
+}
+.gw-cart__sum b { font-family: Fraunces, Georgia, serif; font-size: 1.3rem; font-weight: 600; letter-spacing: -0.02em; color: var(--deep); }
+.gw-cart__total { font-size: 1.3rem; font-weight: 700; color: var(--forest); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.gw-cart__empty {
+  padding: var(--s8) var(--s6); text-align: center;
+  background: var(--cream); border: 1px dashed var(--line); border-radius: var(--r-lg);
+}
+.gw-cart__empty p { margin: var(--s2) 0 var(--s6); color: var(--muted); }
+
+/* Kortets krop kan ikke undvære pladsen på små skærme — 24px indvendigt
+   levner under 110px til kontrolrækken i et 2-kolonne gitter. */
+@media (max-width: 520px) {
+  .gw-prod__body { padding-inline: var(--s3); }
+  .gw-cartrow .gw-qty { width: 124px; }
 }

@@ -34,7 +34,7 @@
     <nav class="gw-nav" aria-label="Hovedmenu">
       <a class="gw-navlink" href="index.html">Forside</a>
       <a class="gw-navlink" href="vare-liste.html" aria-current="page">Vare liste</a>
-      <a class="gw-navlink" href="bestil.html">Bestil</a>
+      <a class="gw-navlink" href="kurv.html">Kurv <span class="gw-cartcount" data-gw-cart-count hidden>0</span></a>
       <a class="gw-navlink" href="om-os.html">Om os</a>
       <a class="gw-navlink" href="kontakt.html">Kontakt os</a>
       <a class="gw-btn gw-btn--ghost" style="margin-left:12px" href="kontrol-rapport.html">Se kontrolrapport</a>
@@ -60,6 +60,14 @@
         hjem — ring gerne, hvis du leder efter noget bestemt.
       </p>
 
+      <noscript>
+        <p class="gw-note" style="margin-top:24px">
+          Priser og &quot;læg i kurv&quot; kræver JavaScript. Ring på
+          <a class="gw-link" href="tel:+4551916089">51 91 60 89</a>, så tager vi imod
+          din bestilling over telefonen.
+        </p>
+      </noscript>
+
       <nav class="gw-chips" aria-label="Varekategorier">
         <a class="gw-chip" href="#mel">Mel &amp; injera</a>
         <a class="gw-chip" href="#krydderier">Krydderier &amp; smør</a>
@@ -81,7 +89,11 @@
       </div>
 
       <div class="gw-grid gw-g2 gw-g-lg4">
-        <article class="gw-prod">
+        <!-- PRISUDKAST -->
+        <article class="gw-prod"
+                 data-sku="teff-brun"
+                 data-name="Teff mel, brun"
+                 data-units="1 kg:45|2 kg:85|5 kg:200">
           <div class="gw-prod__media"><img src="assets/img/p-teff-mel.png" alt="Skål med brunt teff-mel" width="182" height="196" loading="lazy"></div>
           <div class="gw-prod__body">
             <h3 class="gw-prod__name">Teff mel, brun</h3>
@@ -89,7 +101,11 @@
           </div>
         </article>
 
-        <article class="gw-prod">
+        <!-- PRISUDKAST -->
+        <article class="gw-prod"
+                 data-sku="teff-hvid"
+                 data-name="Teff mel, hvid"
+                 data-units="1 kg:50|2 kg:95|5 kg:220">
           <div class="gw-prod__media"><img src="assets/img/p-hvid-mel.png" alt="Skål med hvidt teff-mel" width="146" height="182" loading="lazy"></div>
           <div class="gw-prod__body">
             <h3 class="gw-prod__name">Teff mel, hvid</h3>
@@ -98,7 +114,11 @@
         </article>
 
         <!-- PLACEHOLDER -->
-        <article class="gw-prod">
+        <!-- PRISUDKAST -->
+        <article class="gw-prod"
+                 data-sku="injera"
+                 data-name="Færdig injera"
+                 data-units="5 stk:40|10 stk:75">
           <div class="gw-prod__media gw-prod__media--cover"><img src="https://placehold.co/400x400/efe7d8/5c6b57?text=Foto+mangler" alt="Pladsholder — foto mangler" width="400" height="400" loading="lazy"></div>
           <div class="gw-prod__body">
             <span class="gw-badge gw-badge--sand" style="position:static;align-self:flex-start;margin-bottom:4px">Eksempel</span>
@@ -108,7 +128,11 @@
         </article>
 
         <!-- PLACEHOLDER -->
-        <article class="gw-prod">
+        <!-- PRISUDKAST -->
+        <article class="gw-prod"
+                 data-sku="bygmel"
+                 data-name="Bygmel"
+                 data-units="1 kg:30|2 kg:55">
           <div class="gw-prod__media gw-prod__media--cover"><img src="https://placehold.co/400x400/efe7d8/5c6b57?text=Foto+mangler" alt="Pladsholder — foto mangler" width="400" height="400" loading="lazy"></div>
           <div class="gw-prod__body">
             <span class="gw-badge gw-badge--sand" style="position:static;align-self:flex-start;margin-bottom:4px">Eksempel</span>
@@ -130,7 +154,11 @@
       </div>
 
       <div class="gw-grid gw-g2 gw-g-lg4">
-        <article class="gw-prod">
+        <!-- PRISUDKAST -->
+        <article class="gw-prod"
+                 data-sku="chilli-pulver"
+                 data-name="Chilli pulver"
+                 data-units="250 g:45|500 g:80|1 kg:150">
           <div class="gw-prod__media"><img src="assets/img/p-chilli-pulver.png" alt="Bunke af rødt chilipulver med tørrede chili" width="162" height="280" loading="lazy"></div>
           <div class="gw-prod__body">
             <h3 class="gw-prod__name">Chilli pulver</h3>
@@ -138,7 +166,11 @@
           </div>
         </article>
 
-        <article class="gw-prod">
+        <!-- PRISUDKAST -->
+        <article class="gw-prod"
+                 data-sku="krydret-smoer"
+                 data-name="Krydret smør"
+                 data-units="250 g:55|500 g:100">
           <div class="gw-prod__media"><img src="assets/img/p-krydret-smoer.png" alt="Skål med krydret, klaret smør" width="142" height="150" loading="lazy"></div>
           <div class="gw-prod__body">
             <h3 class="gw-prod__name">Krydret smør</h3>
@@ -146,7 +178,11 @@
           </div>
         </article>
 
-        <article class="gw-prod">
+        <!-- PRISUDKAST -->
+        <article class="gw-prod"
+                 data-sku="krydderier"
+                 data-name="Flere krydderier"
+                 data-units="100 g:25|250 g:55">
           <div class="gw-prod__media"><img src="assets/img/p-krydderier.png" alt="Messingfad med kanel, kardemomme og hele krydderier" width="136" height="150" loading="lazy"></div>
           <div class="gw-prod__body">
             <h3 class="gw-prod__name">Flere krydderier</h3>
@@ -155,7 +191,11 @@
         </article>
 
         <!-- PLACEHOLDER -->
-        <article class="gw-prod">
+        <!-- PRISUDKAST -->
+        <article class="gw-prod"
+                 data-sku="hele-krydderier"
+                 data-name="Hele krydderier"
+                 data-units="100 g:25|250 g:55">
           <div class="gw-prod__media gw-prod__media--cover"><img src="https://placehold.co/400x400/efe7d8/5c6b57?text=Foto+mangler" alt="Pladsholder — foto mangler" width="400" height="400" loading="lazy"></div>
           <div class="gw-prod__body">
             <span class="gw-badge gw-badge--sand" style="position:static;align-self:flex-start;margin-bottom:4px">Eksempel</span>
@@ -177,7 +217,10 @@
       </div>
 
       <div class="gw-grid gw-g2 gw-g-lg4">
-        <article class="gw-prod">
+        <article class="gw-prod"
+                 data-sku="tomat"
+                 data-name="Tomat"
+                 data-units="1 kg:15|2 kg:30|5 kg:70">
           <div class="gw-prod__media gw-prod__media--cover">
             <span class="gw-badge gw-badge--leaf">Tilbud</span>
             <img src="assets/img/tomat.jpg" alt="Friske røde tomater" width="225" height="225" loading="lazy">
@@ -185,12 +228,15 @@
           <div class="gw-prod__body">
             <h3 class="gw-prod__name">Tomat</h3>
             <p class="gw-prod__desc">1 kg frisk tomat klar til mad.</p>
-            <p class="gw-prod__price">15,00 kr / kg</p>
           </div>
         </article>
 
         <!-- PLACEHOLDER -->
-        <article class="gw-prod">
+        <!-- PRISUDKAST -->
+        <article class="gw-prod"
+                 data-sku="loeg"
+                 data-name="Løg"
+                 data-units="1 kg:15|5 kg:60">
           <div class="gw-prod__media gw-prod__media--cover"><img src="https://placehold.co/400x400/efe7d8/5c6b57?text=Foto+mangler" alt="Pladsholder — foto mangler" width="400" height="400" loading="lazy"></div>
           <div class="gw-prod__body">
             <span class="gw-badge gw-badge--sand" style="position:static;align-self:flex-start;margin-bottom:4px">Eksempel</span>
@@ -200,7 +246,11 @@
         </article>
 
         <!-- PLACEHOLDER -->
-        <article class="gw-prod">
+        <!-- PRISUDKAST -->
+        <article class="gw-prod"
+                 data-sku="groen-chili"
+                 data-name="Grøn chili"
+                 data-units="250 g:20|500 g:35">
           <div class="gw-prod__media gw-prod__media--cover"><img src="https://placehold.co/400x400/efe7d8/5c6b57?text=Foto+mangler" alt="Pladsholder — foto mangler" width="400" height="400" loading="lazy"></div>
           <div class="gw-prod__body">
             <span class="gw-badge gw-badge--sand" style="position:static;align-self:flex-start;margin-bottom:4px">Eksempel</span>
@@ -223,7 +273,11 @@
 
       <div class="gw-grid gw-g2 gw-g-lg4">
         <!-- PLACEHOLDER — mangler rigtigt foto af køddisken -->
-        <article class="gw-prod">
+        <!-- PRISUDKAST -->
+        <article class="gw-prod"
+                 data-sku="habesha-koed"
+                 data-name="Habesha kød"
+                 data-units="1 kg:120|2 kg:230|5 kg:550">
           <div class="gw-prod__media gw-prod__media--cover"><img src="https://placehold.co/400x400/efe7d8/5c6b57?text=Foto+mangler" alt="Pladsholder — foto mangler" width="400" height="400" loading="lazy"></div>
           <div class="gw-prod__body">
             <h3 class="gw-prod__name">Habesha kød</h3>
@@ -232,7 +286,11 @@
         </article>
 
         <!-- PLACEHOLDER -->
-        <article class="gw-prod">
+        <!-- PRISUDKAST -->
+        <article class="gw-prod"
+                 data-sku="kylling"
+                 data-name="Kylling"
+                 data-units="1 stk:75|2 stk:145">
           <div class="gw-prod__media gw-prod__media--cover"><img src="https://placehold.co/400x400/efe7d8/5c6b57?text=Foto+mangler" alt="Pladsholder — foto mangler" width="400" height="400" loading="lazy"></div>
           <div class="gw-prod__body">
             <span class="gw-badge gw-badge--sand" style="position:static;align-self:flex-start;margin-bottom:4px">Eksempel</span>
@@ -255,7 +313,11 @@
 
       <div class="gw-grid gw-g2 gw-g-lg4">
         <!-- PLACEHOLDER -->
-        <article class="gw-prod">
+        <!-- PRISUDKAST -->
+        <article class="gw-prod"
+                 data-sku="roede-linser"
+                 data-name="Røde linser"
+                 data-units="1 kg:30|2 kg:55|5 kg:125">
           <div class="gw-prod__media gw-prod__media--cover"><img src="https://placehold.co/400x400/efe7d8/5c6b57?text=Foto+mangler" alt="Pladsholder — foto mangler" width="400" height="400" loading="lazy"></div>
           <div class="gw-prod__body">
             <span class="gw-badge gw-badge--sand" style="position:static;align-self:flex-start;margin-bottom:4px">Eksempel</span>
@@ -265,7 +327,11 @@
         </article>
 
         <!-- PLACEHOLDER -->
-        <article class="gw-prod">
+        <!-- PRISUDKAST -->
+        <article class="gw-prod"
+                 data-sku="kikaerter"
+                 data-name="Kikærter"
+                 data-units="1 kg:30|2 kg:55|5 kg:125">
           <div class="gw-prod__media gw-prod__media--cover"><img src="https://placehold.co/400x400/efe7d8/5c6b57?text=Foto+mangler" alt="Pladsholder — foto mangler" width="400" height="400" loading="lazy"></div>
           <div class="gw-prod__body">
             <span class="gw-badge gw-badge--sand" style="position:static;align-self:flex-start;margin-bottom:4px">Eksempel</span>
@@ -275,7 +341,11 @@
         </article>
 
         <!-- PLACEHOLDER -->
-        <article class="gw-prod">
+        <!-- PRISUDKAST -->
+        <article class="gw-prod"
+                 data-sku="basmati-ris"
+                 data-name="Basmati ris"
+                 data-units="1 kg:30|5 kg:130|10 kg:240">
           <div class="gw-prod__media gw-prod__media--cover"><img src="https://placehold.co/400x400/efe7d8/5c6b57?text=Foto+mangler" alt="Pladsholder — foto mangler" width="400" height="400" loading="lazy"></div>
           <div class="gw-prod__body">
             <span class="gw-badge gw-badge--sand" style="position:static;align-self:flex-start;margin-bottom:4px">Eksempel</span>
@@ -298,7 +368,11 @@
 
       <div class="gw-grid gw-g2 gw-g-lg4">
         <!-- PLACEHOLDER -->
-        <article class="gw-prod">
+        <!-- PRISUDKAST -->
+        <article class="gw-prod"
+                 data-sku="kaffeboenner"
+                 data-name="Kaffebønner"
+                 data-units="500 g:70|1 kg:130">
           <div class="gw-prod__media gw-prod__media--cover"><img src="https://placehold.co/400x400/efe7d8/5c6b57?text=Foto+mangler" alt="Pladsholder — foto mangler" width="400" height="400" loading="lazy"></div>
           <div class="gw-prod__body">
             <span class="gw-badge gw-badge--sand" style="position:static;align-self:flex-start;margin-bottom:4px">Eksempel</span>
@@ -308,7 +382,11 @@
         </article>
 
         <!-- PLACEHOLDER -->
-        <article class="gw-prod">
+        <!-- PRISUDKAST -->
+        <article class="gw-prod"
+                 data-sku="te"
+                 data-name="Te"
+                 data-units="100 g:30|250 g:65">
           <div class="gw-prod__media gw-prod__media--cover"><img src="https://placehold.co/400x400/efe7d8/5c6b57?text=Foto+mangler" alt="Pladsholder — foto mangler" width="400" height="400" loading="lazy"></div>
           <div class="gw-prod__body">
             <span class="gw-badge gw-badge--sand" style="position:static;align-self:flex-start;margin-bottom:4px">Eksempel</span>
@@ -329,7 +407,7 @@
         mangler, så vender vi tilbage.
       </p>
       <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:32px">
-        <a class="gw-btn gw-btn--lg" href="bestil.html">Bestil varer</a>
+        <a class="gw-btn gw-btn--lg" href="kurv.html">Bestil varer</a>
         <a class="gw-btn gw-btn--ghost gw-btn--lg" href="tel:+4551916089">Ring 51 91 60 89</a>
       </div>
     </div>
@@ -362,7 +440,7 @@
         <ul>
           <li><a href="index.html">Forside</a></li>
           <li><a href="vare-liste.html">Vare liste</a></li>
-          <li><a href="bestil.html">Bestil</a></li>
+          <li><a href="kurv.html">Kurv</a></li>
           <li><a href="om-os.html">Om os</a></li>
           <li><a href="kontakt.html">Kontakt os</a></li>
           <li><a href="kontrol-rapport.html">Se kontrolrapport</a></li>
@@ -397,7 +475,7 @@
 
 <!-- ============================ MOBIL: BUNDBJÆLKE + MENU ============================ -->
 <div class="gw-bottombar">
-  <a class="gw-btn" href="bestil.html">Bestil varer</a>
+  <a class="gw-btn" href="kurv.html">Bestil varer <span class="gw-cartcount" data-gw-cart-count hidden>0</span></a>
   <a class="gw-btn gw-btn--ghost" href="tel:+4551916089">Ring til os</a>
 </div>
 
@@ -408,13 +486,13 @@
   <nav aria-label="Mobilmenu">
     <a class="gw-sheet__link" href="index.html">Forside <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
     <a class="gw-sheet__link" href="vare-liste.html" aria-current="page">Vare liste <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
-    <a class="gw-sheet__link" href="bestil.html">Bestil <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+    <a class="gw-sheet__link" href="kurv.html"><span>Kurv <span class="gw-cartcount" data-gw-cart-count hidden>0</span></span> <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
     <a class="gw-sheet__link" href="om-os.html">Om os <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
     <a class="gw-sheet__link" href="kontakt.html">Kontakt os <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
     <a class="gw-sheet__link" href="kontrol-rapport.html">Se kontrolrapport <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
   </nav>
   <div class="gw-sheet__foot">
-    <a class="gw-btn gw-btn--block" href="bestil.html">Bestil varer</a>
+    <a class="gw-btn gw-btn--block" href="kurv.html">Bestil varer</a>
     <a class="gw-btn gw-btn--ghost gw-btn--block" href="tel:+4551916089">Ring 51 91 60 89</a>
   </div>
 </div>

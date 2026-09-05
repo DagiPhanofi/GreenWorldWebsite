@@ -5,29 +5,37 @@
 > what is left.
 
 > **Cross-page rule:** header, footer, mobile sheet and bottom bar are duplicated
-> byte-identically across all six HTML files (no build step). Any change to them must be
-> applied to `index.html`, `vare-liste.html`, `bestil.html`, `om-os.html`, `kontakt.html`
-> and `kontrol-rapport.html` — all six, identically.
+> byte-identically across all seven HTML files (no build step). Any change to them must be
+> applied to `index.html`, `vare-liste.html`, `kurv.html`, `bestil.html`, `om-os.html`,
+> `kontakt.html` and `kontrol-rapport.html` — all seven, identically. `404.html` carries the
+> same block but with root-absolute hrefs (`/kurv.html`), so it is edited alongside, not copied.
+>
+> `bestil.html` is kept working but is no longer linked from anywhere — ordering runs through
+> the cart on `kurv.html`. See `shoppingcart.md`.
 
 ---
 
 ## 1. Blockers — fix before replacing the Weebly site
 
-- [ ] **Hook up the order/contact form endpoint.** Both forms still carry the literal
-      `data-access-key="INDSÆT_WEB3FORMS_ACCESS_KEY"`, so `assets/site.js` silently falls
-      back to a prefilled `mailto:`. Get a free key at web3forms.com and paste it in.
-      → `bestil.html:93`, `kontakt.html:157`
+- [ ] **Replace the 17 draft prices.** Every product except Tomat carries an invented price
+      that real customers can see, marked `<!-- PRISUDKAST -->`. The owner must confirm or
+      correct each one, then the marker gets deleted.
+      → `grep -n "PRISUDKAST" vare-liste.html`, table in `shoppingcart.md`
+
+- [ ] **Confirm the unit sizes per product.** `data-units` currently guesses what the shop
+      sells (teff in 1/2/5 kg, injera in 5/10 pcs, and so on). Wrong sizes produce orders the
+      shop cannot pack.
+      → `vare-liste.html`, `shoppingcart.md` section 5
+
+- [ ] **Decide whether the 11 `Eksempel` products should be orderable.** They can be added to
+      the cart today but have neither a real description nor a photo. Either finish them, or
+      strip `data-sku` from the card — that alone removes its add-to-cart control.
 
 - [ ] **Replace the 11 placeholder product cards.** They carry an `Eksempel` badge and the
       copy "Beskrivelse mangler — udfyldes med butikkens rigtige vare": Færdig injera,
       Bygmel, Hele krydderier, Løg, Grøn chili, Kylling, Røde linser, Kikærter, Basmati
       ris, Kaffebønner, Te. Only 6 of 18 products are real today.
       → `vare-liste.html`, grep `<!-- PLACEHOLDER -->`
-
-- [ ] **Decide the price policy.** Exactly one product has a price (Tomat, 15,00 kr/kg).
-      Either price everything, or drop `.gw-prod__price` entirely and say "ring for pris".
-      A single priced item among seventeen unpriced ones looks broken.
-      → `vare-liste.html:189`
 
 - [ ] **Photograph the meat counter.** Two pages show a `placehold.co` box where the meat
       section image belongs. `assets/img/habesha-koed.jpg` was downloaded from the old site
@@ -44,9 +52,6 @@
 ---
 
 ## 2. Missing business data (owner must supply)
-
-- [ ] **Confirm the postcode.** `1656 København V` was *inferred* from the street name, never
-      confirmed. It appears in the hero, both map cards, both address blocks and 6 footers.
 
 - [ ] **Confirm opening hours per day.** The old site only ever said "10–20". The site now
       asserts 10–20 for all seven days, including Sunday. Confirm weekends and public
@@ -116,6 +121,7 @@
       `focus-visible` and active states, and that the bottom-sheet focus trap releases
       correctly. The CSS looks right; it has not been driven from a keyboard.
 
-- [ ] **Run the screenshot loop at 390×844 and 1440×900 for all 6 pages,** per CLAUDE.md.
+- [ ] **Run the screenshot loop at 390×844 and 1440×900 for all 7 pages,** per CLAUDE.md.
+      `vare-liste.html` and `kurv.html` have been checked at both sizes; the other five have not.
       There is no evidence in the repo that mobile has been visually verified — check for
       horizontal scroll, wrapped headings, and tap targets under 44×44px.

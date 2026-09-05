@@ -54,7 +54,14 @@ Disse værdier er bekræftet fra den nuværende side. **Opfind aldrig nye.**
 Findsmiley-nummeret stod ikke på siden. Det blev fundet i en efterladt `Disallow`-linje
 i `gwservice.weebly.com/robots.txt`.
 
-### Bestillingsformularer der skal bevares
+### Bestilling
+
+Bestilling foregår gennem indkøbskurven på `kurv.html`: kunden vælger varer med størrelse og
+antal på varelisten, gennemgår kurven, og sender via Web3Forms til `gwservice@gmail.com`.
+Se `shoppingcart.md`.
+
+De tre Google Forms er **udgået** sammen med `bestil.html`. De står her, hvis de skal
+genoplives, men er ikke længere linket fra sitet:
 
 | Sprog | URL |
 |---|---|
@@ -70,8 +77,9 @@ København", "teff mel", "injera").
 | Fil | Titel | Opgave |
 |---|---|---|
 | `index.html` | Forside | Sælg butikken på 10 sekunder. Hero, hvem vi er, traditionelle varer, hvor vi ligger. |
-| `vare-liste.html` | Vare liste | Vis sortimentet grupperet i kategorier. Den vigtigste side. |
-| `bestil.html` | Bestil | Dansk bestillingsformular → e-mail, plus de tre sprogformularer. |
+| `vare-liste.html` | Vare liste | Vis sortimentet grupperet i kategorier. Den vigtigste side. Bærer varedata i `data-*`. |
+| `kurv.html` | Din kurv | Kurv + bestillingsformular. Fritekstfelt til varer uden for listen. |
+| `bestil.html` | Bestil | **Udgået.** Bliver liggende og virker, men intet linker til den. |
 | `om-os.html` | Om os | Historien, kødets religiøse renhed, værdier. |
 | `kontakt.html` | Kontakt os | Adresse, telefon, mail, kort, åbningstider, kort besked-formular. |
 | `kontrol-rapport.html` | Se kontrolrapport | Forklar smiley-ordningen, link til Findsmiley. |
@@ -163,10 +171,10 @@ Deployment: Vercel (se `deployment.txt`).
 ## Mangler
 
 - [ ] **CVR-nummer** — står ingen steder; skal i footeren.
-- [ ] **Endpoint til bestillingsformular** — Web3Forms access key eller Formspree-ID.
-      Indtil da falder formularen tilbage til en forudfyldt `mailto:`.
 - [ ] **Rigtig vareliste med priser og fotos** — placeholder-kort er markeret med
       HTML-kommentaren `<!-- PLACEHOLDER -->` og kan findes med grep.
+- [ ] **Rigtige priser** — alle varer undtagen Tomat har en opdigtet pris, markeret
+      `<!-- PRISUDKAST -->`. Den vises til kunderne. Se `shoppingcart.md`.
 - [ ] **Foto af habesha-kød** — det eksisterende viser svinekød og kan ikke bruges.
 - [ ] **Postnummer** — 1656 København V er udledt af vejnavnet.
 - [ ] **Åbningstider pr. dag** — kun "10–20" findes; weekend og helligdage ukendt.
