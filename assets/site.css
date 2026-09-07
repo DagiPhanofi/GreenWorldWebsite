@@ -3,6 +3,36 @@
    Farver samplet direkte fra Brand_assets/logo.jpeg
    ========================================================================= */
 
+/* -------------------------------------------------------------------------
+   Skrifttyper — selvhostede.
+   Begge er variable fonte: én fil dækker hele vægtintervallet, så de to
+   regler herunder erstatter de 37 @font-face-regler, Google leverede.
+   Grunden til at de ligger her og ikke hos Google: et <link> til
+   fonts.googleapis.com sender den besøgendes IP-adresse til Google ved hvert
+   sidevisning, før brugeren har foretaget sig noget. Nu hentes intet udefra.
+   Latin-udsnittet (U+0000-00FF) dækker æ ø å Æ Ø Å.
+   ------------------------------------------------------------------------- */
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 500 700;
+  font-display: swap;
+  src: url('fonts/fraunces-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+                 U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+                 U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('fonts/inter-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+                 U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+                 U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 :root {
   /* Brand — udtrukket fra logoet */
   --forest:   #066923;
@@ -298,6 +328,10 @@ img { max-width: 100%; height: auto; display: block; }
 .gw-hero__facts { display: flex; flex-wrap: wrap; gap: var(--s3) var(--s6); margin-top: var(--s12); padding-top: var(--s6); border-top: 1px solid rgba(255,255,255,.2); }
 .gw-hero__fact { color: rgba(255,255,255,.82); font-size: .92rem; display: inline-flex; align-items: center; gap: var(--s2); }
 .gw-hero__fact svg { color: var(--leaf); flex: none; }
+.gw-hero__fact-link { color: inherit; text-decoration: none; padding: 10px 0; margin: -10px 0; transition: color .18s cubic-bezier(.2,.8,.3,1); }
+.gw-hero__fact-link:hover { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+.gw-hero__fact-link:focus-visible { outline: 2px solid var(--leaf); outline-offset: 3px; border-radius: 3px; color: #fff; }
+.gw-hero__fact-link:active { color: rgba(255,255,255,.7); }
 
 /* Sidehoved på undersider */
 .gw-pagehead { position: relative; overflow: hidden; padding-block: var(--s12) var(--s12); }
@@ -377,6 +411,15 @@ a.gw-card:active { transform: translateY(-1px); box-shadow: var(--sh-sm); }
   transition: box-shadow .3s var(--ease), border-color .3s var(--ease);
 }
 .gw-textarea { min-height: 132px; resize: vertical; line-height: 1.6; }
+
+/* iOS Safari giver input[type=date] en indbygget bredde, der ignorerer width:100%
+   og derfor stikker ud over skærmen. Nulstil den native styling og lad feltet krympe. */
+.gw-input[type="date"] {
+  -webkit-appearance: none; appearance: none;
+  min-width: 0; max-width: 100%; display: block;
+}
+.gw-input[type="date"]::-webkit-date-and-time-value { text-align: left; margin: 0; min-width: 0; }
+.gw-input[type="date"]::-webkit-calendar-picker-indicator { margin: 0 0 0 auto; flex: none; }
 .gw-select {
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' stroke='%235c6b57' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
@@ -408,6 +451,10 @@ a.gw-card:active { transform: translateY(-1px); box-shadow: var(--sh-sm); }
 .gw-radio input:active + span { transform: scale(.985); }
 
 .gw-note { font-size: .88rem; color: var(--muted); }
+/* Uden dette bliver links i småteksten browserens standardblå og understregede */
+.gw-note a { color: var(--forest); font-weight: 500; text-decoration: underline; text-underline-offset: 2px; transition: opacity .3s var(--ease); }
+.gw-note a:hover { opacity: .7; }
+.gw-note a:focus-visible { outline: 3px solid var(--leaf); outline-offset: 2px; border-radius: 3px; }
 
 /* Kvitteringspanel */
 .gw-ok {
@@ -467,6 +514,15 @@ a.gw-card:active { transform: translateY(-1px); box-shadow: var(--sh-sm); }
   display: flex; flex-wrap: wrap; gap: var(--s3) var(--s6); justify-content: space-between;
   font-size: .85rem; color: rgba(255,255,255,.5);
 }
+/* Juridiske links i bundbjælken. Lidt lysere end resten af bjælken, så de
+   kan læses — men stadig neddæmpet, det er småt med vilje. */
+.gw-footer__legal { display: flex; flex-wrap: wrap; align-items: center; gap: 0 var(--s2); }
+.gw-footer__legal a { color: rgba(255,255,255,.72); }
+.gw-footer__legal span { color: rgba(255,255,255,.3); }
+@media (max-width: 767px) {
+  /* 44px berøringsmål på telefon, uden at flytte teksten optisk */
+  .gw-footer__legal a { display: inline-flex; align-items: center; min-height: 44px; }
+}
 
 /* Smiley-kort i footeren */
 .gw-smiley {
@@ -482,6 +538,7 @@ a.gw-card:active { transform: translateY(-1px); box-shadow: var(--sh-sm); }
 
 /* ---------- Hjælpere ---------- */
 .gw-grid { display: grid; gap: var(--s6); }
+.gw-grid > * { min-width: 0; }   /* gitterceller må ikke vokse ud over kolonnen */
 .gw-g2 { grid-template-columns: repeat(2, minmax(0,1fr)); }
 @media (min-width: 640px) { .gw-g-sm3 { grid-template-columns: repeat(3, minmax(0,1fr)); } }
 @media (min-width: 768px) { .gw-g-md2 { grid-template-columns: repeat(2, minmax(0,1fr)); } }
@@ -666,4 +723,91 @@ body[data-locked="true"] { overflow: hidden; }
 @media (max-width: 520px) {
   .gw-prod__body { padding-inline: var(--s3); }
   .gw-cartrow .gw-qty { width: 124px; }
+}
+
+/* =========================================================================
+   BRØDTEKST PÅ TEKSTTUNGE SIDER (privatlivspolitik, cookies, handelsbetingelser)
+   Sitet havde ingen prosaklasse — lange juridiske sider har brug for
+   lister, mellemrubrikker og luft, som .gw-body ikke dækker.
+   ========================================================================= */
+.gw-prose { color: var(--muted); line-height: 1.7; text-wrap: pretty; }
+.gw-prose > *:first-child { margin-top: 0; }
+
+.gw-prose h2 {
+  font-family: Fraunces, Georgia, "Times New Roman", serif;
+  font-size: clamp(1.25rem, 1.2vw + .85rem, 1.6rem);
+  font-weight: 600; line-height: 1.2; letter-spacing: -0.02em;
+  color: var(--deep); margin: var(--s12) 0 var(--s4); text-wrap: balance;
+}
+.gw-prose h3 {
+  font-family: Fraunces, Georgia, "Times New Roman", serif;
+  font-size: 1.1rem; font-weight: 600; line-height: 1.3; letter-spacing: -0.015em;
+  color: var(--deep); margin: var(--s8) 0 var(--s3);
+}
+.gw-prose p { margin: 0 0 var(--s4); }
+.gw-prose strong { color: var(--ink); font-weight: 600; }
+
+.gw-prose ul, .gw-prose ol { margin: 0 0 var(--s4); padding-left: var(--s6); }
+.gw-prose li { margin-bottom: var(--s2); padding-left: var(--s1); }
+.gw-prose li::marker { color: var(--leaf); font-weight: 600; }
+.gw-prose ul ul, .gw-prose ol ol { margin-top: var(--s2); }
+
+.gw-prose a { color: var(--forest); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; transition: opacity .3s var(--ease); }
+.gw-prose a:hover { opacity: .7; }
+.gw-prose a:focus-visible { outline: 3px solid var(--leaf); outline-offset: 2px; border-radius: 3px; }
+
+/* Tabeller ruller i deres egen beholder — aldrig vandret scroll på siden */
+.gw-tablewrap { overflow-x: auto; margin: 0 0 var(--s6); -webkit-overflow-scrolling: touch; }
+.gw-prose table { width: 100%; border-collapse: collapse; font-size: .95rem; min-width: 380px; }
+.gw-prose th, .gw-prose td { text-align: left; padding: var(--s3) var(--s4); border-bottom: 1px solid var(--line); vertical-align: top; }
+.gw-prose th { color: var(--deep); font-weight: 600; font-size: .88rem; }
+.gw-prose tbody tr:last-child td { border-bottom: 0; }
+
+/* På telefon bliver en flerkolonnetabel til ét ord pr. linje bag en vandret
+   scrollbar. Derfor stables rækkerne i stedet, og kolonneoverskriften følger
+   med hver celle via data-label. */
+@media (max-width: 640px) {
+  .gw-tablewrap:has(.gw-table--stack) { overflow-x: visible; }
+  .gw-prose .gw-table--stack { min-width: 0; }
+  .gw-prose .gw-table--stack thead {
+    position: absolute; width: 1px; height: 1px;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+  }
+  .gw-prose .gw-table--stack,
+  .gw-prose .gw-table--stack tbody,
+  .gw-prose .gw-table--stack tr,
+  .gw-prose .gw-table--stack td { display: block; width: 100%; }
+  .gw-prose .gw-table--stack tr {
+    padding: var(--s3) 0; border-bottom: 1px solid var(--line);
+  }
+  .gw-prose .gw-table--stack tbody tr:last-child { border-bottom: 0; }
+  .gw-prose .gw-table--stack td { border: 0; padding: 3px 0; }
+  .gw-prose .gw-table--stack td::before {
+    content: attr(data-label) ": ";
+    font-weight: 600; color: var(--deep);
+  }
+}
+
+/* "Kort fortalt"-boksen øverst på hver juridisk side */
+.gw-tldr { background: var(--cream); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--s6); margin: 0 0 var(--s12); }
+.gw-tldr h2 { margin-top: 0; }
+.gw-tldr ul { margin-bottom: 0; }
+
+/* Dato nederst */
+.gw-updated { margin-top: var(--s12); padding-top: var(--s6); border-top: 1px solid var(--line); font-size: .88rem; color: var(--muted); }
+
+/* Ubekræftede fakta — skal udfyldes eller fjernes af butikken før launch.
+   Med vilje iøjnefaldende, så intet forkert bliver stående. */
+.gw-prose mark.gw-check {
+  background: #fff3cd; color: #664d03;
+  padding: 2px 7px; border-radius: 4px;
+  font-size: .9em; font-weight: 600;
+}
+
+/* Tekniske navne (fx nøglen til kurven) må ikke brækkes ved bindestregerne */
+.gw-prose code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: .92em; white-space: nowrap;
+  background: var(--cream); border: 1px solid var(--line);
+  padding: 1px 6px; border-radius: 5px; color: var(--deep);
 }

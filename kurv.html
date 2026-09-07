@@ -11,9 +11,8 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="da_DK">
 <link rel="icon" href="assets/img/logo.jpg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
@@ -204,13 +203,18 @@
 
             <label class="gw-field">
               <span class="gw-label">Bemærkninger <span>(valgfrit)</span></span>
-              <textarea class="gw-textarea" name="Bemærkninger" style="min-height:96px" placeholder="Allergier, ønsket mængde, andet vi skal vide …"></textarea>
+              <textarea class="gw-textarea" name="Bemærkninger" style="min-height:96px" placeholder="Fx ønsket mængde, mærke eller andet om selve bestillingen …"></textarea>
+              <span class="gw-note" style="display:block;margin-top:8px">
+                Skriv ikke helbredsoplysninger her. Har du en allergi, så fortæl os det, når vi
+                ringer — så læser vi varedeklarationen op for dig.
+              </span>
             </label>
 
             <button class="gw-btn gw-btn--lg gw-btn--block" type="submit">Send bestilling</button>
 
             <p class="gw-note" style="margin-top:16px;text-align:center">
               Vi bruger kun dine oplysninger til at ekspedere din bestilling.
+              Se vores <a href="privatlivspolitik.html">privatlivspolitik</a>.
             </p>
           </form>
         </div>
@@ -304,6 +308,11 @@
 
     <div class="gw-footer__bar">
       <span>© <span data-gw-year>2026</span> GREEN WORLD · Gasværksvej 15, København V</span>
+      <span class="gw-footer__legal">
+        <a href="privatlivspolitik.html">Privatlivspolitik</a> <span aria-hidden="true">·</span>
+        <a href="cookies.html">Cookies</a> <span aria-hidden="true">·</span>
+        <a href="handelsbetingelser.html">Handelsbetingelser</a>
+      </span>
       <span>Åbent alle dage 10–20</span>
     </div>
   </div>

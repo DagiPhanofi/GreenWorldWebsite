@@ -97,9 +97,53 @@
 
 ## 5. Legal / GDPR
 
-- [ ] **Write a privacy policy page (persondatapolitik).** Two forms collect name, phone
-      and e-mail. A Danish business site collecting personal data needs this; right now the
-      only statement is one line of small print under each submit button.
+- [x] **Write a privacy policy page (persondatapolitik).** Done — `privatlivspolitik.html`,
+      plus `cookies.html` and `handelsbetingelser.html`. Linked from the footer bottom bar on
+      all 11 pages, and from the small print under both order forms.
+- [x] **Self-host the fonts.** Google Fonts used to load on every page, sending each visitor's
+      IP to Google before any interaction. Now `assets/fonts/` (2 variable woff2, 115 KB total).
+
+### Must be settled before the legal pages go live
+
+- [ ] **Fill in the `BEKRÆFT` placeholders on the three legal pages.** They are marked in
+      yellow on the rendered pages so they cannot ship unnoticed. Grep: `gw-check`.
+      Outstanding: legal name and company form on CVR 45089096 · postcode 1656 (derived, not
+      confirmed) · opening hours incl. Sunday and holidays · typical callback window · how long
+      a packed order is held · whether the shop delivers at all, and area/minimum/fee · accepted
+      payment methods · whether alcohol or tobacco is sold · exchange policy as a gesture ·
+      VAT registration · the current Nævnenes Hus monetary threshold.
+- [ ] **Retire `bestil.html`.** Not linked from anywhere, and `project_description.md` calls it
+      udgået — but it is still deployed, still submits real personal data through the same live
+      Web3Forms key, and still links three Google Forms. Google Forms would be a second data
+      processor nobody has assessed. The privacy policy is written for the two live forms only,
+      so it is inaccurate for as long as this page ships.
+- [ ] **17 of 18 prices are still `PRISUDKAST`** in `vare-liste.html` and are visible to
+      customers. The reservation model softens it, but advertising prices nobody in the shop has
+      approved is a real problem. Blocking.
+- [ ] **`gwservice@gmail.com` is a free consumer Gmail account.** No data processing agreement
+      covers it, and all customer correspondence lives there. Moving to Workspace or another
+      provider with a DPA, on the shop's own domain, fixes both the legal gap and the
+      unprofessional address at once.
+- [ ] **Get a data processing agreement with Web3Forms**, and find out their retention period,
+      sub-processors and server location. The privacy policy currently carries a `BEKRÆFT`
+      marker where that belongs.
+- [ ] **Confirm the Vercel hosting decision** — it is named in the policy as the host keeping
+      server logs.
+- [ ] **Keep a simple internal record of processing activities** (fortegnelse, art. 30). The
+      small-business exemption does not apply, because order handling is regular. One page is
+      enough — this is a shop task, not a website task.
+
+### Smaller, related
+
+- [ ] **Remove the stale `<!-- TODO: CVR-nummer mangler -->` comment** — it still sits directly
+      above `CVR:45089096` in all 8 original footers, and the number is in fact there.
+- [ ] **Raise the CVR contrast in the footer.** It renders at `rgba(255,255,255,.4)`, which is
+      very hard to read on the dark ground.
+- [ ] **Resolve the Findsmiley discrepancy.** `kontrol-rapport.html:8` meta says `7028996`;
+      every link and on-page mention says `1515947`. A wrong inspection-report link on a food
+      shop is worse than no link.
+- [ ] **Update `project_description.md:51`**, which still records CVR as "UKENDT — mangler".
+- [ ] Add the three legal pages to `sitemap.xml` when it is created.
 
 ---
 
