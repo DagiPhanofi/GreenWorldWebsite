@@ -43,12 +43,16 @@ Disse værdier er bekræftet fra den nuværende side. **Opfind aldrig nye.**
 | Felt | Værdi |
 |---|---|
 | Navn | GREEN WORLD |
-| Adresse | Gasværksvej 15, 1656 København V *(postnummer udledt — skal bekræftes)* |
+| Juridisk navn | Hiywet Export, enkeltmandsvirksomhed *(bekræftet af butikken)* |
+| Adresse | Gasværksvej 15, 1656 København V *(postnummer bekræftet)* |
 | Telefon | 51 91 60 89 |
 | E-mail | gwservice@gmail.com |
-| Åbningstider | Alle dage kl. 10–20 *(kun angivet som løbende tekst på den gamle side)* |
-| Findsmiley virksomhedsnr. | 7028996 → `https://www.findsmiley.dk/7028996` |
-| CVR | **UKENDT — mangler** |
+| Åbningstider | Alle dage kl. 10–20 *(bekræftet — gælder også weekend)* |
+| Betaling | Kort, MobilePay eller kontant i butikken *(bekræftet)* |
+| Alkohol og tobak | Sælges ikke *(bekræftet)* |
+| Findsmiley virksomhedsnr. | 1515947 → `https://www.findsmiley.dk/app/1515947` |
+| CVR | 45089086 *(bekræftet)* |
+| Momsnummer | DK45089086 — samme nummer som CVR *(bekræftet)* |
 | Sociale medier | **Findes ikke — mangler** |
 
 Findsmiley-nummeret stod ikke på siden. Det blev fundet i en efterladt `Disallow`-linje
@@ -60,8 +64,9 @@ Bestilling foregår gennem indkøbskurven på `kurv.html`: kunden vælger varer 
 antal på varelisten, gennemgår kurven, og sender via Web3Forms til `gwservice@gmail.com`.
 Se `shoppingcart.md`.
 
-De tre Google Forms er **udgået** sammen med `bestil.html`. De står her, hvis de skal
-genoplives, men er ikke længere linket fra sitet:
+De tre Google Forms er **udgået** sammen med `bestil.html`, som er slettet fra repoet.
+URL'erne står her, hvis de skal genoplives — men bemærk, at Google Forms i så fald bliver
+en databehandler mere, som privatlivspolitikken skal dække:
 
 | Sprog | URL |
 |---|---|
@@ -79,10 +84,17 @@ København", "teff mel", "injera").
 | `index.html` | Forside | Sælg butikken på 10 sekunder. Hero, hvem vi er, traditionelle varer, hvor vi ligger. |
 | `vare-liste.html` | Vare liste | Vis sortimentet grupperet i kategorier. Den vigtigste side. Bærer varedata i `data-*`. |
 | `kurv.html` | Din kurv | Kurv + bestillingsformular. Fritekstfelt til varer uden for listen. |
-| `bestil.html` | Bestil | **Udgået.** Bliver liggende og virker, men intet linker til den. |
 | `om-os.html` | Om os | Historien, kødets religiøse renhed, værdier. |
 | `kontakt.html` | Kontakt os | Adresse, telefon, mail, kort, åbningstider, kort besked-formular. |
 | `kontrol-rapport.html` | Se kontrolrapport | Forklar smiley-ordningen, link til Findsmiley. |
+| `privatlivspolitik.html` | Privatlivspolitik | Persondatapolitik for de to Web3Forms-formularer. |
+| `cookies.html` | Cookies | Hvad siden sætter, og hvad den ikke sætter. |
+| `handelsbetingelser.html` | Handelsbetingelser | Reservationsmodellen, afhentning, fortrydelse, reklamation. |
+| `404.html` | Side ikke fundet | Samme header/footer, men med rod-absolutte hrefs. |
+
+`bestil.html` er **slettet**. Den lå deployet med en aktiv Web3Forms-nøgle og tre Google
+Forms, uden at nogen databehandleraftale dækkede dem, og intet linkede til den. Ligger i
+git-historikken; `/bestil` 301-redirectes til `/kurv` i `vercel.json`.
 
 ## Genbrugt indhold
 
@@ -170,12 +182,9 @@ Deployment: Vercel (se `deployment.txt`).
 
 ## Mangler
 
-- [ ] **CVR-nummer** — står ingen steder; skal i footeren.
 - [ ] **Rigtig vareliste med priser og fotos** — placeholder-kort er markeret med
       HTML-kommentaren `<!-- PLACEHOLDER -->` og kan findes med grep.
 - [ ] **Rigtige priser** — alle varer undtagen Tomat har en opdigtet pris, markeret
       `<!-- PRISUDKAST -->`. Den vises til kunderne. Se `shoppingcart.md`.
 - [ ] **Foto af habesha-kød** — det eksisterende viser svinekød og kan ikke bruges.
-- [ ] **Postnummer** — 1656 København V er udledt af vejnavnet.
-- [ ] **Åbningstider pr. dag** — kun "10–20" findes; weekend og helligdage ukendt.
 - [ ] **Sociale medier** — ingen fundet.

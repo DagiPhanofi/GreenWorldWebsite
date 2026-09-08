@@ -5,13 +5,15 @@
 > what is left.
 
 > **Cross-page rule:** header, footer, mobile sheet and bottom bar are duplicated
-> byte-identically across all seven HTML files (no build step). Any change to them must be
-> applied to `index.html`, `vare-liste.html`, `kurv.html`, `bestil.html`, `om-os.html`,
-> `kontakt.html` and `kontrol-rapport.html` — all seven, identically. `404.html` carries the
-> same block but with root-absolute hrefs (`/kurv.html`), so it is edited alongside, not copied.
+> byte-identically across the nine content pages (no build step). Any change to them must be
+> applied to `index.html`, `vare-liste.html`, `kurv.html`, `om-os.html`, `kontakt.html`,
+> `kontrol-rapport.html`, `privatlivspolitik.html`, `cookies.html` and
+> `handelsbetingelser.html` — all nine, identically. `404.html` carries the same block but
+> with root-absolute hrefs (`/kurv.html`), so it is edited alongside, not copied.
 >
-> `bestil.html` is kept working but is no longer linked from anywhere — ordering runs through
-> the cart on `kurv.html`. See `shoppingcart.md`.
+> `bestil.html` is **deleted**, together with the three Google Forms it linked. Ordering runs
+> through the cart on `kurv.html`. Do not resurrect the page without re-doing the GDPR
+> assessment — see `shoppingcart.md`.
 
 ---
 
@@ -19,7 +21,9 @@
 
 - [ ] **Replace the 17 draft prices.** Every product except Tomat carries an invented price
       that real customers can see, marked `<!-- PRISUDKAST -->`. The owner must confirm or
-      correct each one, then the marker gets deleted.
+      correct each one, then the marker gets deleted. This is also the legal blocker:
+      advertising prices nobody in the shop has approved is a real problem, and
+      `handelsbetingelser.html:137` carries a `BLOKERENDE` marker saying so.
       → `grep -n "PRISUDKAST" vare-liste.html`, table in `shoppingcart.md`
 
 - [ ] **Confirm the unit sizes per product.** `data-units` currently guesses what the shop
@@ -34,29 +38,24 @@
 - [ ] **Replace the 11 placeholder product cards.** They carry an `Eksempel` badge and the
       copy "Beskrivelse mangler — udfyldes med butikkens rigtige vare": Færdig injera,
       Bygmel, Hele krydderier, Løg, Grøn chili, Kylling, Røde linser, Kikærter, Basmati
-      ris, Kaffebønner, Te. Only 6 of 18 products are real today.
-      → `vare-liste.html`, grep `<!-- PLACEHOLDER -->`
+      ris, Kaffebønner, Te. Only 7 of 18 products are real today.
+      → `vare-liste.html`, grep `>Eksempel<`
 
 - [ ] **Photograph the meat counter.** Two pages show a `placehold.co` box where the meat
       section image belongs. `assets/img/habesha-koed.jpg` was downloaded from the old site
       but is deliberately unused — it shows bacon/salami-like product, which contradicts the
       whole religious-handling message. Replace it, then delete the old file.
-      → `index.html:110`, `om-os.html:100`
+      → `index.html:109`, `om-os.html:98`
 
 - [ ] **Photograph the shop interior.** Same problem, second placeholder.
-      → `index.html:120`, `om-os.html:89`
+      → `index.html:119`, `om-os.html:87`
 
 - [ ] **Product photo for Habesha kød.** The copy is real, the image is a placeholder.
-      → `vare-liste.html:228`
+      → `vare-liste.html:279`
 
 ---
 
 ## 2. Missing business data (owner must supply)
-
-- [ ] **Confirm opening hours per day.** The old site only ever said "10–20". The site now
-      asserts 10–20 for all seven days, including Sunday. Confirm weekends and public
-      holidays before launch — wrong hours on a grocery store is a real-world cost.
-      → `kontakt.html:113-119`, footer hours block in all 6 files
 
 - [ ] **Social media: create or drop.** None found anywhere. Currently the site simply has
       no social links, which is fine — but decide deliberately.
@@ -70,7 +69,7 @@
       geo, telephone, `openingHoursSpecification`, and `sameAs` → the Findsmiley page.
       Nothing structured exists on any page today.
 
-- [ ] **Add `<link rel="canonical">`** to all 6 pages. None present.
+- [ ] **Add `<link rel="canonical">`** to all 9 content pages. None present.
 
 - [ ] **Add `og:image` and `og:url`.** Shared links currently render as a blank card.
       Also add `twitter:card`. The `og:title` / `og:description` / `og:type` / `og:locale`
@@ -86,9 +85,10 @@
 
 ## 4. Deployment (Vercel)
 
-- [ ] **Create `vercel.json`:** clean URLs (`/bestil` instead of `/bestil.html`), long-lived
+- [ ] **Create `vercel.json`:** clean URLs (`/kurv` instead of `/kurv.html`), long-lived
       cache headers for `assets/`, and 301 redirects from the old Weebly paths so existing
-      links and any accumulated search ranking survive the cutover.
+      links and any accumulated search ranking survive the cutover. Include
+      `/bestil` → `/kurv`, since `bestil.html` was deployed before it was deleted.
 
 - [ ] **Decide the domain and plan the DNS cutover** from `gwservice.weebly.com`.
       `deployment.txt` currently holds two URLs and no decision.
@@ -97,52 +97,75 @@
 
 ## 5. Legal / GDPR
 
-- [x] **Write a privacy policy page (persondatapolitik).** Done — `privatlivspolitik.html`,
-      plus `cookies.html` and `handelsbetingelser.html`. Linked from the footer bottom bar on
-      all 11 pages, and from the small print under both order forms.
-- [x] **Self-host the fonts.** Google Fonts used to load on every page, sending each visitor's
-      IP to Google before any interaction. Now `assets/fonts/` (2 variable woff2, 115 KB total).
-
 ### Must be settled before the legal pages go live
 
-- [ ] **Fill in the `BEKRÆFT` placeholders on the three legal pages.** They are marked in
-      yellow on the rendered pages so they cannot ship unnoticed. Grep: `gw-check`.
-      Outstanding: legal name and company form on CVR 45089096 · postcode 1656 (derived, not
-      confirmed) · opening hours incl. Sunday and holidays · typical callback window · how long
-      a packed order is held · whether the shop delivers at all, and area/minimum/fee · accepted
-      payment methods · whether alcohol or tobacco is sold · exchange policy as a gesture ·
-      VAT registration · the current Nævnenes Hus monetary threshold.
-- [ ] **Retire `bestil.html`.** Not linked from anywhere, and `project_description.md` calls it
-      udgået — but it is still deployed, still submits real personal data through the same live
-      Web3Forms key, and still links three Google Forms. Google Forms would be a second data
-      processor nobody has assessed. The privacy policy is written for the two live forms only,
-      so it is inaccurate for as long as this page ships.
-- [ ] **17 of 18 prices are still `PRISUDKAST`** in `vare-liste.html` and are visible to
-      customers. The reservation model softens it, but advertising prices nobody in the shop has
-      approved is a real problem. Blocking.
+- [ ] **Verify the Web3Forms access key actually belongs to the shop.** `kurv.html:108` and
+      `kontakt.html:178` both carry `894dbba5-03bb-4553-a7de-235e951fb583`, and the comment
+      right above it at `kontakt.html:173` says it "skal udskiftes med en rigtig Web3Forms
+      access key". If that is still a demo key, every order submitted so far went to somebody
+      else's inbox — and the DPA does not help, because it binds the account holder, so the shop
+      would have no agreement with Web3Forms at all. Send one test order and confirm it lands in
+      `gwservice@gmail.com`. Everything else in this section depends on the answer.
+
+- [ ] **Fill in the 6 remaining `BEKRÆFT` placeholders on the legal pages.** They render in
+      yellow so they cannot ship unnoticed. Grep: `gw-check`. Outstanding:
+      - **whether the shop delivers at all**, and area / minimum / fee / payment at the door
+        → `handelsbetingelser.html:182`. This is the last one on that page with real teeth: the
+        `Levering` option is live in the cart form, so a customer can pick it today without the
+        terms saying whether it exists.
+      - the current Nævnenes Hus monetary threshold → `handelsbetingelser.html:295`
+      - the 17 unapproved prices → `handelsbetingelser.html:138` (same item as section 1)
+      - data processing agreement with the **mail provider** → `privatlivspolitik.html:209`
+        (the Web3Forms half of this marker is settled — their DPA binds on continued use)
+      - which **AWS region** holds the submissions → `privatlivspolitik.html:223`
+        (the rest is answered on the page now: Hetzner in Germany / Finland, SCCs, India)
+      - the concrete transfer basis for **Vercel and Google**, checked against the Data Privacy
+        Framework list rather than claimed generically → `privatlivspolitik.html:226`
+        (Web3Forms is settled: SCCs, importer in India, *not* DPF)
+
 - [ ] **`gwservice@gmail.com` is a free consumer Gmail account.** No data processing agreement
       covers it, and all customer correspondence lives there. Moving to Workspace or another
       provider with a DPA, on the shop's own domain, fixes both the legal gap and the
       unprofessional address at once.
-- [ ] **Get a data processing agreement with Web3Forms**, and find out their retention period,
-      sub-processors and server location. The privacy policy currently carries a `BEKRÆFT`
-      marker where that belongs.
+
+- [ ] **Ask Web3Forms which AWS region holds the submissions.** The DPA (v1.0, 13 Jul 2026) is
+      in place and answers most of what we needed — see the notes below — but Annex 3 says only
+      "AWS regions as configured for the Services". Hetzner is EU (Germany / Finland), but that
+      is the application layer, not the DynamoDB table and S3 bucket the submissions land in.
+      Without the region, the transfer paragraph cannot be written concretely.
+      → mail address at the bottom of `https://web3forms.com/dpa`
+
+- [ ] **Check the no-returns rule against delivered orders.** The shop confirmed that goods sold
+      are not taken back, and `handelsbetingelser.html` now says so — but only under "Når du
+      henter og betaler i butikken", which is correct. If the shop ever delivers, a delivered
+      order can be distance selling, and then the 14-day fortrydelsesret applies to anything not
+      perishable or hygiene-sealed — an unopened bag of rice or coffee beans. That exception
+      cannot be written away, and it is already stated further down the page. Make sure the shop
+      knows the rule is "no returns in the shop", not "no returns ever".
+
+- [ ] **Have the owner read the rewritten Web3Forms passages in `privatlivspolitik.html`.**
+      Three factual corrections are drafted and live on the page: the order is no longer claimed
+      to exist "intet andet sted" (Web3Forms keeps its own copy for three years), CleanTalk and
+      Akismet are named as recipients of IP address and e-mail, and the sub-processors AWS,
+      Cloudflare and Hetzner are listed. It is the owner's text — it needs their sign-off, not
+      just ours.
+
+- [ ] **Write the transfer impact assessment for Web3Forms.** The transfer basis is now known
+      and concrete: Web3Creative operates from **India**, and the SCCs (Commission Implementing
+      Decision (EU) 2021/914) are incorporated into the DPA by reference, with Web3Creative as
+      importer. India has no adequacy decision and the EU-US Data Privacy Framework does not
+      apply to an Indian company, so SCCs alone are not the whole answer — a short written
+      assessment of Indian government access has to sit behind them. One page is enough.
+
 - [ ] **Confirm the Vercel hosting decision** — it is named in the policy as the host keeping
       server logs.
+
 - [ ] **Keep a simple internal record of processing activities** (fortegnelse, art. 30). The
       small-business exemption does not apply, because order handling is regular. One page is
       enough — this is a shop task, not a website task.
 
 ### Smaller, related
 
-- [ ] **Remove the stale `<!-- TODO: CVR-nummer mangler -->` comment** — it still sits directly
-      above `CVR:45089096` in all 8 original footers, and the number is in fact there.
-- [ ] **Raise the CVR contrast in the footer.** It renders at `rgba(255,255,255,.4)`, which is
-      very hard to read on the dark ground.
-- [ ] **Resolve the Findsmiley discrepancy.** `kontrol-rapport.html:8` meta says `7028996`;
-      every link and on-page mention says `1515947`. A wrong inspection-report link on a food
-      shop is worse than no link.
-- [ ] **Update `project_description.md:51`**, which still records CVR as "UKENDT — mangler".
 - [ ] Add the three legal pages to `sitemap.xml` when it is created.
 
 ---
@@ -154,18 +177,18 @@
       WebP/AVIF anywhere. Oversized images were a named problem with the old Weebly site —
       don't reintroduce them.
 
-- [ ] **Add `srcset` to the product images.** Only the hero has one (`index.html:56`); every
-      `p-*.png` is served at full size to a 390px phone.
+- [ ] **Add `srcset` to the product images.** Only the hero has one (`index.html:54`, with a
+      1000px variant on disk); every `p-*.png` is served at full size to a 390px phone.
 
 ---
 
 ## 7. Accessibility & polish
 
-- [ ] **Keyboard pass over all 6 pages.** Verify every clickable element has hover,
+- [ ] **Keyboard pass over all 10 pages.** Verify every clickable element has hover,
       `focus-visible` and active states, and that the bottom-sheet focus trap releases
       correctly. The CSS looks right; it has not been driven from a keyboard.
 
-- [ ] **Run the screenshot loop at 390×844 and 1440×900 for all 7 pages,** per CLAUDE.md.
-      `vare-liste.html` and `kurv.html` have been checked at both sizes; the other five have not.
-      There is no evidence in the repo that mobile has been visually verified — check for
+- [ ] **Run the screenshot loop at 390×844 and 1440×900 for all 10 pages,** per CLAUDE.md.
+      `vare-liste.html` and `kurv.html` have been checked at both sizes; the other eight have
+      not. There is no evidence in the repo that mobile has been visually verified — check for
       horizontal scroll, wrapped headings, and tap targets under 44×44px.

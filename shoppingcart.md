@@ -22,18 +22,18 @@ endpoint der allerede kører.
   e-mail.
 
 Kurven er en **struktureret bestillingsanmodning**, som et menneske bekræfter over telefon —
-præcis den proces, `bestil.html` allerede lovede med "Vi ringer og bekræfter pris, mængde og
-tidspunkt".
+præcis den proces, den gamle `bestil.html` allerede lovede med "Vi ringer og bekræfter pris,
+mængde og tidspunkt".
 
 ## 3. Beslutninger
 
 | Spørgsmål | Beslutning |
 |---|---|
 | Hvor ligger kassen? | Ny `kurv.html`. Menupunktet "Bestil" peger derhen. |
-| Hvad sker der med `bestil.html`? | Bliver liggende i repoet og virker stadig, men intet linker til den. Slet den ikke. |
+| Hvad sker der med `bestil.html`? | **Slettet.** Den lå deployet med en aktiv Web3Forms-nøgle og tre Google Forms, som ingen databehandleraftale dækkede. Findes i git-historikken. `/bestil` 301-redirectes til `/kurv` i `vercel.json`. |
 | Hvor ligger varedata? | `data-*`-attributter på hvert `.gw-prod`-kort. Ingen renderingslag, intet build-step. |
 | Priser | Alle varer får en pris nu, og den vises — inkl. sum i kurven. Priserne er udkast og kan rettes når som helst. |
-| De tre Google Forms | Udgår sammen med `bestil.html`. Web3Forms opsamler alt fremover. |
+| De tre Google Forms | Udgået sammen med `bestil.html`. Web3Forms opsamler alt fremover. URL'erne er gemt i `project_description.md`, hvis de skal genoplives. |
 
 ## 4. Antagelser
 
